@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Select elements to animate
   const animatedElements = document.querySelectorAll(
-    '.hero-content, .hero-visual, .section-header, .card, .step, .contact-wrapper, .building-content, .building-visual, .feature-item'
+    '.hero-content, .section-header, .card, .step, .contact-wrapper, .building-content, .building-visual, .feature-item'
   );
 
   animatedElements.forEach((el, index) => {
@@ -118,26 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // ============================================
-  // Enhanced Voice Wave Animation
-  // ============================================
-  const voiceWave = document.querySelector('.voice-wave');
-
-  if (voiceWave) {
-    const bars = voiceWave.querySelectorAll('.bar');
-
-    // Add randomized animation delays for more natural feel
-    bars.forEach((bar, index) => {
-      const randomDelay = Math.random() * 0.5;
-      bar.style.animationDelay = `${randomDelay}s`;
-
-      // Add random height variations
-      setInterval(() => {
-        const randomScale = 0.7 + Math.random() * 0.6;
-        bar.style.setProperty('--random-scale', randomScale);
-      }, 2000 + Math.random() * 1000);
-    });
-  }
 
   // ============================================
   // Smooth Scroll for Anchor Links
@@ -275,6 +255,20 @@ document.addEventListener('DOMContentLoaded', () => {
       imageObserver.observe(img);
     });
   }
+
+  // ============================================
+  // Card Spotlight Effect
+  // ============================================
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
 
   // ============================================
   // Console Easter Egg

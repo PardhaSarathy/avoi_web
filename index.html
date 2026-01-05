@@ -12,7 +12,8 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 </head>
 
@@ -62,68 +63,6 @@
             </div>
           </div>
           <!-- We will add a visual here later, maybe a CSS representation of a voice wave or phone interaction -->
-          <div class="hero-visual">
-            <!-- Volumetric Wave (User Provided Physics-Based) -->
-            <div class="soundwave-visual"
-              style="position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-              <canvas id="volumetricCanvas"></canvas>
-              <script>
-                (function () {
-                  const canvas = document.getElementById('volumetricCanvas');
-                  if (!canvas) return;
-
-                  const ctx = canvas.getContext('2d');
-                  let w, h, t = 0;
-
-                  function resize() {
-                    if (!canvas.parentElement) return;
-                    w = canvas.width = canvas.parentElement.clientWidth;
-                    h = canvas.height = canvas.parentElement.clientHeight;
-                  }
-
-                  /* Gaussian attenuation = soft edges */
-                  function attenuation(x) {
-                    return Math.exp(-x * x * 2.2);
-                  }
-
-                  function drawLayer(color, amp, speed, f1, f2, alpha) {
-                    ctx.globalCompositeOperation = "lighter";
-                    ctx.fillStyle = color;
-
-                    for (let i = 0; i < w; i += 2) {
-                      const nx = (i / w - 0.5) * 4;
-                      const att = attenuation(nx);
-
-                      const signal =
-                        Math.sin(i * f1 + t * speed) * 0.6 +
-                        Math.sin(i * f2 + t * speed * 1.3) * 0.4;
-
-                      const y = h / 2 + signal * amp * att;
-                      const thickness = att * 40;
-
-                      ctx.globalAlpha = alpha * att;
-                      ctx.fillRect(i, y - thickness / 2, 2, thickness);
-                    }
-                  }
-
-                  function animate() {
-                    ctx.clearRect(0, 0, w, h);
-
-                    drawLayer("rgba(0,255,255,1)", 120, 1.0, 0.012, 0.018, 0.12);
-                    drawLayer("rgba(0,255,120,1)", 90, 1.3, 0.015, 0.022, 0.10);
-                    drawLayer("rgba(120,120,255,1)", 70, 0.9, 0.010, 0.016, 0.08);
-
-                    t += 0.02;
-                    requestAnimationFrame(animate);
-                  }
-
-                  window.addEventListener('resize', resize);
-                  resize();
-                  animate();
-                })();
-              </script>
-            </div>
-          </div>
         </div>
       </section>
 
